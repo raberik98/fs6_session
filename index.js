@@ -41,3 +41,19 @@ function vpc({ subnets }) {
 
     return { outputs }
 }
+
+
+{
+    first: {name: "first"}
+    second: {name: "second"}
+}
+// for_each
+{
+    first: { id: 12 }
+    second: { id: 123123 }
+}
+
+
+[ "first", "second" ]
+// count
+[ {id: 1}, {id: 2} ]

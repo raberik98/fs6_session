@@ -5,6 +5,7 @@ vpc = {
   name       = "f6-vpc"
   cidr_block = "10.0.0.0/16"
   tags       = {}
+  NAT_subnet = "public_1"
 
   subnets = [
     {
@@ -29,3 +30,10 @@ vpc = {
     },
   ]
 }
+
+keys = [ 
+  {
+    name = "my_key"
+    key_string = ""
+  } 
+]

@@ -1,2 +1,5 @@
 *.tfstate*
 .terraform
+keys/*
+!keys/.gitkeep
+!modules/keys/

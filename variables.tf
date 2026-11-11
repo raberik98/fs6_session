@@ -7,6 +7,7 @@ variable "vpc" {
     cidr_block = string
 
     tags = optional(map(string), {})
+    NAT_subnet = optional(string, "")
 
     subnets = list(object({
       name       = string
@@ -16,4 +17,11 @@ variable "vpc" {
       tags = optional(map(string), {})
     }))
   })
+}
+
+variable "keys" {
+  type = list(object({
+    name = string
+    key_string = string 
+  }))
 }

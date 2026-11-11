@@ -13,6 +13,31 @@ resource "aws_vpc" "this" {
   }, var.tags)
 }
 
+resource "aws_internet_gateway" "this" {
+  vpc_id = aws_vpc.this.id
+
+  tags = {
+    Name = "${var.name}-igw"
+  }
+}
+
+resource "aws_eip" "this" {
+  domain   = "vpc"
+
+  tags = {
+    Name = "${var.name}-nat-eip"
+  }
+}
+
+#  aws_nat_gateway.this =  [ {} ]
+resource "aws_nat_gateway" "this" {
+  count = var.NAT_subnet != "" ? 1 : 0
+
+  subnet_id = aws_subnet.public[var.NAT_subnet].id
+  allocation_id = aws_eip.this.id
+}
+
+#  aws_nat_gateway.this =  { key = {} }
 resource "aws_subnet" "public" {
   for_each = local.public_subnets
 
@@ -35,4 +60,18 @@ resource "aws_subnet" "private" {
   tags = merge({
     Name = "${var.name}-${each.key}"
   }, each.value.tags)
+}
+
+resource "aws_route_table_association" "public" {
+  for_each = aws_subnet.public
+  
+  route_table_id = aws_route_table.public.id
+  subnet_id = each.value.id
+}
+
+resource "aws_route_table_association" "private" {
+  for_each = var.NAT_subnet != "" ? aws_subnet.private : {}
+  
+  route_table_id = aws_route_table.private[0].id
+  subnet_id = each.value.id
 }
