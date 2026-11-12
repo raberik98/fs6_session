@@ -25,3 +25,12 @@ variable "keys" {
     key_string = string 
   }))
 }
+
+variable "ec2_instances" {
+  type = list(object({
+    name = string
+    key_name = string
+    subnet_name = string
+    type = string
+  }))
+}

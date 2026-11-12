@@ -9,3 +9,7 @@ output "private_subnets" {
 output "all_subnets" {
   value = merge(aws_subnet.private, aws_subnet.public)
 }
+
+output "vpc_id" {
+  value = aws_vpc.this.id
+}

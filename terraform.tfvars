@@ -33,7 +33,16 @@ vpc = {
 
 keys = [ 
   {
-    name = "my_key"
+    name = "example"
     key_string = ""
+  } 
+]
+
+ec2_instances = [
+  {
+    name = "ec2.1"
+    type = ""
+    key_name = "example"
+    subnet_name = "public_1"
   } 
 ]
