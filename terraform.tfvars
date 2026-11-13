@@ -12,37 +12,41 @@ vpc = {
       name       = "public_1"
       cidr_block = "10.0.0.0/24"
       type       = "public"
+      az         = "a"
     },
     {
       name       = "public_2"
       cidr_block = "10.0.1.0/24"
       type       = "public"
+      az         = "b"
     },
     {
       name       = "private_1"
       cidr_block = "10.0.2.0/24"
       type       = "private"
+      az         = "a"
     },
     {
       name       = "private_2"
       cidr_block = "10.0.3.0/24"
       type       = "private"
+      az         = "b"
     },
   ]
 }
 
-keys = [ 
+keys = [
   {
-    name = "example"
-    key_string = ""
-  } 
+    name       = "example"
+    key_path   = "keys/example.pub"
+  }
 ]
 
 ec2_instances = [
   {
-    name = "ec2.1"
-    type = ""
-    key_name = "example"
+    name        = "ec2.1"
+    type        = ""
+    key_name    = "example"
     subnet_name = "public_1"
-  } 
+  }
 ]

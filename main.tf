@@ -6,16 +6,22 @@ module "vpc" {
   tags       = var.vpc.tags
   NAT_subnet = var.vpc.NAT_subnet
 
-  subnets = var.vpc.subnets
+  subnets = [
+    for sn in var.vpc.subnets : {
+      name = sn.name
+      cidr_block = sn.cidr_block
+      type = sn.type
+      az = "${var.aws_region}${sn.az}"
+    }
+  ]
 }
 
 
 module "keys" {
   source = "./modules/keys"
-  for_each = { for key in var.keys : key.name => key.key_string }
+  for_each = { for key in var.keys : key.name => key }
 
-  name = each.key
-  key_string = each.value
+  key = each.value
 }
 
 module "ec2" {

@@ -8,6 +8,7 @@ variable "subnets" {
     name       = string
     cidr_block = string
     type       = string # public | private | db 
+    az         = string
 
     tags = optional(map(string), {})
   }))
